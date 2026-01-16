@@ -1,6 +1,8 @@
 package bank.domain;
 
+import bank.service.AccountService; // transferService
 import bank.util.CardTypes;
+import bank.util.LogTracker;   // transferService
 
 import java.util.ArrayList;
 
@@ -46,4 +48,23 @@ public abstract class Account implements Transactable, Exportable{
     }
 
     abstract void nalicz();
+
+// TransferService
+    @Override
+    public LogTracker transferTo(Account kontoDocelowe, float kwota) {
+        if (kontoDocelowe == null || kwota <= 0) {
+            return LogTracker.Error;
+        }
+
+
+        LogTracker wynikWyplaty = AccountService.withdraw(this, kwota);
+        if (wynikWyplaty != LogTracker.Success) {
+            return LogTracker.Error;
+        }
+
+        AccountService.deposit(kontoDocelowe, kwota);
+
+        return LogTracker.Success;
+    }
+
 }

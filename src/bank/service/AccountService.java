@@ -70,6 +70,8 @@ public final class AccountService {
             Logs.Log(LogTracker.Error+" brak wystarczających środków na koncie");
             return LogTracker.Error;
         }
+        float saldo = konto.getSaldo();
+        konto.setSaldo(saldo-ammount);
         Logs.Log(LogTracker.Success+": wypłacono środki ("+ammount+") z konta");
         return LogTracker.Success;
     }

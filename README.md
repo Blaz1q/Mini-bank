@@ -29,3 +29,26 @@ Cel: prosty system bankowy obsługujący różne typy kont, transakcje i karty; 
    - `abstract FraudDetector` z prostą implementacją. [07]
 10. GitHub [02]
     - Repo, `.gitignore`, `README.md` z przykładowym wyciągiem. [02]
+
+## Przykładowy Wyciąg `historia_banku.csv`
+```
+Typ;Wiadomość
+Info;Zakladanie konta (Blazej)
+Success;Stworzono konto CheckingAccount
+Info;Zakladanie konta (Blazej)
+Success;Stworzono konto SavingsAccount
+Info;Szukanie konta (Blazej)
+Info;Pobieranie konta (Blazej)
+Info;Pobieranie konta (Blazej)
+Success;saldo wzrosło (1000.0)
+Success;saldo wzrosło (500.0)
+Info;Zakladanie karty (Blazej)
+Success;stworzono nową kartę VirtualCard
+Error;wartość przekracza limit dzienny
+Success;wypłacono środki (100.0) z konta
+Success;saldo wzrosło (100.0)
+Info;PRZELEW: Blazej (CheckingAccount nr 7146) -> Blazej (SavingsAccount nr 6566) kwota: 100.0
+Info;--- ROZPOCZĘCIE NALICZANIA OKRESOWEGO ---
+Info;Pobrano opłatę systemową (0.01) od Blazej
+Info;Naliczono odsetki (330.0) dla Blazej
+```

@@ -32,8 +32,4 @@ public class SavingsAccount extends Account{
         return null;
     }
 
-    @Override
-    public LogTracker transferTo(Account konto, float ammount) {
-        return null;
-    }
 }

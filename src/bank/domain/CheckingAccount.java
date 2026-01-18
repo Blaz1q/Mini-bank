@@ -12,11 +12,15 @@ public class CheckingAccount extends Account{
 
     @Override
     public void nalicz() {
-        if (this.saldo >= this.oplaty) {
-            this.saldo -= this.oplaty;
-            Logs.Log(LogTracker.Info + ": Pobrano opłatę systemową (" + this.oplaty + ") od " + getWlasciciel());
+        this.saldo -= this.oplaty;
+
+        String wiadomosc = ": Pobrano opłatę systemową (" + this.oplaty + ") od " + getWlasciciel();
+
+        if (this.saldo < 0) {
+            wiadomosc += " [UWAGA: WYSTĄPIŁO ZADŁUŻENIE: " + this.saldo + "]";
+            Logs.Log(LogTracker.Error + wiadomosc);
         } else {
-            Logs.Log(LogTracker.Error + ": Brak środków na opłatę u " + getWlasciciel());
+            Logs.Log(LogTracker.Info + wiadomosc);
         }
     }
 
@@ -35,9 +39,5 @@ public class CheckingAccount extends Account{
         return null;
     }
 
-    @Override
-    public LogTracker transferTo(Account konto, float ammount) {
-        return null;
-    }
 }
 

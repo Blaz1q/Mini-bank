@@ -1,5 +1,6 @@
 package bank.domain;
 
+import bank.util.Logs;
 import bank.util.LogTracker;
 
 public class SavingsAccount extends Account{
@@ -10,8 +11,10 @@ public class SavingsAccount extends Account{
     }
 
     @Override
-    void nalicz() {
-        this.saldo += saldo*odsetki;
+    public void nalicz() {
+        float wypracowanyZysk = this.saldo * this.odsetki;
+        this.saldo += wypracowanyZysk;
+        Logs.Log(LogTracker.Info + ": Naliczono odsetki (" + wypracowanyZysk + ") dla " + getWlasciciel());
     }
 
     @Override

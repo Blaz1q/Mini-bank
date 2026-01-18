@@ -47,7 +47,7 @@ public abstract class Account implements Transactable, Exportable{
         return wlasciciel;
     }
 
-    abstract void nalicz();
+    public abstract void nalicz();
 
 // TransferService
     @Override

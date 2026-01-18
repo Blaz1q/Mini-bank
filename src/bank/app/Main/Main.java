@@ -6,19 +6,29 @@ import bank.service.AccountService;
 import bank.util.AccountTypes;
 import bank.util.CardTypes;
 import bank.util.Logs;
+import bank.service.TransferService;
 
 public class Main {
     public static void main(String[] args) {
         AccountService.ZalozKonto("Blazej", AccountTypes.CheckingAccount);
+        AccountService.ZalozKonto("Blazej", AccountTypes.SavingsAccount);
+
         AccountService.kontaWlasciciela("Blazej");
-        Account kontoBlazej = AccountService.getKonto("Blazej",AccountTypes.SavingsAccount);
-        kontoBlazej = AccountService.getKonto("Blazej",AccountTypes.CheckingAccount);
-        if(kontoBlazej!=null){
-            AccountService.deposit(kontoBlazej,10000);
-            AccountService.ZalozKarte(kontoBlazej, CardTypes.VirtualCard);
-            Card karta = kontoBlazej.getCard(CardTypes.VirtualCard);
-            karta.withdraw(20.0F);
-        }
+
+        Account oszczednosciowe = AccountService.getKonto("Blazej", AccountTypes.SavingsAccount);
+        Account rozliczeniowe = AccountService.getKonto("Blazej", AccountTypes.CheckingAccount);
+
+        AccountService.deposit(oszczednosciowe, 1000.0f);
+        AccountService.deposit(rozliczeniowe, 500.0f);
+
+        AccountService.ZalozKarte(rozliczeniowe, CardTypes.VirtualCard);
+        Card vCard = rozliczeniowe.getCard(CardTypes.VirtualCard);
+        vCard.withdraw(1200.0f); // Przekraczamy limit dzienny
+
+        TransferService.transfer(rozliczeniowe, oszczednosciowe, 100.0f);
+
+        AccountService.przetworzWszystkieKonta();
+
         System.out.println("\nLogi:\n");
         Logs logs = new Logs();
         logs.export();

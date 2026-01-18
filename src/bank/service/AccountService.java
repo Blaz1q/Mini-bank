@@ -115,5 +115,14 @@ public final class AccountService {
         }
     }
 
+    public static void przetworzWszystkieKonta() {
+        Logs.Log(LogTracker.Info + ": --- ROZPOCZĘCIE NALICZANIA OKRESOWEGO ---");
+        for (ArrayList<Account> lista : konta.values()) {
+            for (Account acc : lista) {
+                acc.nalicz();
+            }
+        }
+    }
+
 
 }

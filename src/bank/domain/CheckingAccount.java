@@ -1,5 +1,6 @@
 package bank.domain;
 
+import bank.util.Logs;
 import bank.util.LogTracker;
 
 public class CheckingAccount extends Account{
@@ -10,9 +11,13 @@ public class CheckingAccount extends Account{
     }
 
     @Override
-    void nalicz() {
-        System.out.println("Naliczono opłaty");
-        this.saldo-=oplaty;
+    public void nalicz() {
+        if (this.saldo >= this.oplaty) {
+            this.saldo -= this.oplaty;
+            Logs.Log(LogTracker.Info + ": Pobrano opłatę systemową (" + this.oplaty + ") od " + getWlasciciel());
+        } else {
+            Logs.Log(LogTracker.Error + ": Brak środków na opłatę u " + getWlasciciel());
+        }
     }
 
     @Override

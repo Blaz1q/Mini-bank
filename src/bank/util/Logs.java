@@ -15,9 +15,14 @@ public final class Logs implements Exportable {
 
     @Override
     public void export() {
-        ArrayList<String> finalLogs = logs;
-        for (String finalLog : finalLogs) {
-            System.out.println(finalLog);
+        try (java.io.PrintWriter writer = new java.io.PrintWriter(new java.io.File("historia_banku.csv"))) {
+            writer.println("Typ;Wiadomość");
+            for (String log : logs) {
+                writer.println(log.replaceFirst(": ", ";"));
+            }
+            System.out.println("Pomyślnie wygenerowano plik: historia_banku.csv");
+        } catch (java.io.IOException e) {
+            System.out.println("Błąd zapisu pliku: " + e.getMessage());
         }
     }
 }
